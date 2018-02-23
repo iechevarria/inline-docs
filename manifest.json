@@ -1,0 +1,23 @@
+{
+  "name": "GitHub Embedded Markdown",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "Embeds markdown in relevant files",
+  "author": "Ivan Echevarria",
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://github.com/*"
+      ],
+      "js": [
+        "src/inject.js",
+        "src/micromarkdown.js"
+      ],
+      "run_at": "document_end"
+    }
+  ]
+}
