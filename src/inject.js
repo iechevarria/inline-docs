@@ -6,12 +6,14 @@ const addEmbeddedDocs = () => {
   tds = table.getElementsByTagName("TD")
   for (let i = 0; i < tds.length; i++) {
     if (tds[i].innerHTML.match(/\[!!\ .*\ !!\]/)) {
+      let url = tds[i].innerHTML.split("[!! ")[1].split(" !!]")[0];
+      console.log(url);
       makeCorsRequest(tds[i]);
     }
   }
 }
 
-// [!! docs/basic.txt !!]
+// [!! docs/sample.md !!]
 
 //https://www.html5rocks.com/en/tutorials/cors/
 const createCORSRequest = (method, url) => {
@@ -51,5 +53,4 @@ const makeCorsRequest = (node) => {
 
 // [!! README.md !!]
 
-
-addEmbeddedDocs();
+document.addEventListener("pjax:end", addEmbeddedDocs());
