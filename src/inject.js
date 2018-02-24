@@ -5,15 +5,15 @@ const addEmbeddedDocs = () => {
   let table = document.querySelector('.file').getElementsByTagName("TABLE")[0];
   tds = table.getElementsByTagName("TD")
   for (let i = 0; i < tds.length; i++) {
-    if (tds[i].innerHTML.match(/\[!!\ .*\ !!\]/)) {
-      let url = tds[i].innerHTML.split("[!! ")[1].split(" !!]")[0];
-      console.log(url);
-      makeCorsRequest(tds[i]);
+    if (tds[i].innerHTML.match(/\[!!~.* ~!!\]/)) {
+      let path = tds[i].innerHTML.split("[!! ")[1].split(" !!]")[0];
+      console.log(path);
+      makeCorsRequest(path, tds[i]);
     }
   }
 }
 
-// [!! docs/sample.md !!]
+// [!!~docs/sample.md~!!]
 
 //https://www.html5rocks.com/en/tutorials/cors/
 const createCORSRequest = (method, url) => {
@@ -29,8 +29,8 @@ const createCORSRequest = (method, url) => {
   return xhr;
 }
 
-const makeCorsRequest = (node) => {
-  let url = 'https://api.github.com/repos/iechevarria/pong-js/readme';
+const makeCorsRequest = (path, node) => {
+  let url = 'https://api.github.com/repos/iechevarria/inline-docs/contents/' + path;
   let xhr = createCORSRequest('GET', url);
   if (!xhr) {
     alert('CORS not supported');
@@ -51,6 +51,6 @@ const makeCorsRequest = (node) => {
   xhr.send();
 }
 
-// [!! README.md !!]
+// [!!~README.md~!!]
 
 document.addEventListener("pjax:end", addEmbeddedDocs());
