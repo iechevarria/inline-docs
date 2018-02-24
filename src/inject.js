@@ -1,15 +1,21 @@
 const addEmbeddedDocs = () => {
-  let repoURI = window.location.pathname.substring(1);
-  repoURI = repoURI.endsWith('/') ? repoURI.slice(0, -1) : repoURI;
-  console.log(repoURI);
-  let table = document.querySelector('.file').getElementsByTagName("TABLE")[0];
-  tds = table.getElementsByTagName("TD")
-  for (let i = 0; i < tds.length; i++) {
-    if (tds[i].innerHTML.match(/\[!!~.* ~!!\]/)) {
-      let path = tds[i].innerHTML.split("[!! ")[1].split(" !!]")[0];
-      console.log(path);
-      makeCorsRequest(path, tds[i]);
+  let repoURL = window.location.pathname.substring(1);
+  repoURL = (repoURL.endsWith('/') ? repoURL.slice(0, -1) : repoURL).split('/');
+  let user = repoURL[0];
+  let repo = repoURL[1];
+  try { 
+    let table = document.querySelector('.file').getElementsByTagName("TABLE")[0]; 
+    let tableEntries = table.getElementsByTagName("TD")
+    for (let i = 0; i < tableEntries.length; i++) {
+      if (tableEntries[i].innerHTML.match(/\[!!\~.*\~!!\]/)) {
+        let path = (tableEntries[i].innerHTML.split("[!!\~")[1].split("\~!!]")[0]).replace(/^\s+|\s+$/g, '');
+        if (path.endsWith('.md')) {
+          makeCorsRequest(user, repo, path, tableEntries[i]);
+        }
+      }
     }
+  } catch (TypeError) {
+    console.log('No code on this page')
   }
 }
 
@@ -29,8 +35,9 @@ const createCORSRequest = (method, url) => {
   return xhr;
 }
 
-const makeCorsRequest = (path, node) => {
-  let url = 'https://api.github.com/repos/iechevarria/inline-docs/contents/' + path;
+const makeCorsRequest = (user, repo, path, node) => {
+  console.log('Finding ' + path +  ' in ' + user + '\'s repo ' + repo);
+  let url = 'https://api.github.com/repos/' + user + '/' + repo + '/contents/' + path;
   let xhr = createCORSRequest('GET', url);
   if (!xhr) {
     alert('CORS not supported');
@@ -42,6 +49,7 @@ const makeCorsRequest = (path, node) => {
     let pt2 = '</div></td></tr>';
     let obj = micromarkdown.parse(atob(JSON.parse(this.responseText).content));
     node.parentNode.insertAdjacentHTML('afterend', pt1 + obj + pt2);
+    console.log(path + ' successfully embedded in GitHub repo');
   };
 
   xhr.onerror = function() {
@@ -53,4 +61,4 @@ const makeCorsRequest = (path, node) => {
 
 // [!!~README.md~!!]
 
-document.addEventListener("pjax:end", addEmbeddedDocs());
+document.addEventListener("pjax:complete", addEmbeddedDocs());

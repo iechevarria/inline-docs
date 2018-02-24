@@ -1,3 +1,5 @@
 # Inline docs
 
+![foster city, ca](img/fostercity.jpg)
+
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ultricies ipsum sed elit consequat, nec euismod lacus maximus. Sed eu velit in orci efficitur luctus. Duis vulputate risus ante, venenatis congue lectus fermentum quis. Proin hendrerit, magna at venenatis sollicitudin, lectus nunc condimentum augue, quis tristique sapien mauris condimentum risus. Nunc non lacinia libero, a congue lorem. Donec id dapibus tortor, eget scelerisque dolor. Donec malesuada aliquam faucibus. Quisque dictum aliquet purus non maximus. Sed id tortor mauris. Maecenas sapien mi, sodales eu lorem vel, dictum mollis dui. Nam semper porttitor efficitur. Duis nisi purus, pulvinar nec arcu non, scelerisque malesuada tortor. Pellentesque ut feugiat lacus.
