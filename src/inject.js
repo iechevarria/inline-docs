@@ -1,10 +1,10 @@
+// [!!~ README.md ~!!]
+
 const addEmbeddedDocs = () => {
-  let repoURL = window.location.pathname.substring(1);
-  repoURL = (repoURL.endsWith('/') ? repoURL.slice(0, -1) : repoURL).split('/'); // get path
+  let repoURL = window.location.pathname.substring(1).split('/');
   let user = repoURL[0];
   let repo = repoURL[1];
   let branch = repoURL[3];
-  console.log(branch);
   try { 
     let table = document.querySelector('.file').getElementsByTagName("TABLE")[0]; 
     let tableEntries = table.getElementsByTagName("TD")
@@ -17,11 +17,11 @@ const addEmbeddedDocs = () => {
       }
     }
   } catch (TypeError) {
-    console.log('No code on this page')
+    console.log('No code on this page');
   }
 };
 
-// [!!~docs/sample.md~!!]
+// [!!~ docs/sample.md ~!!]
 
 //https://www.html5rocks.com/en/tutorials/cors/
 const createCORSRequest = (method, url) => {
@@ -68,7 +68,5 @@ const makeCorsRequest = (user, repo, path, branch, node) => {
 
   xhr.send();
 };
-
-// [!!~README.md~!!]
 
 addEmbeddedDocs();
