@@ -1,2 +1,2 @@
 # inline-docs
-inline-docs is Chrome browser extension that displays markdown linked from within the repository inline with code. It's a proof-of-concept more than anything.
+inline-docs is Chrome browser extension that displays markdown inline with code on GitHub. It's a proof-of-concept more than anything.
