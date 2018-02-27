@@ -69,4 +69,8 @@ const makeCorsRequest = (user, repo, path, branch, node) => {
   xhr.send();
 };
 
+document.addEventListener("pjax:end", function() {
+  addEmbeddedDocs();
+});
+
 addEmbeddedDocs();
